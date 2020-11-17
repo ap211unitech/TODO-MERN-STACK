@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect } from 'react';
 import {
     Card,
     CardText,
@@ -12,29 +11,27 @@ import {
 //     CSSTransition,
 //     TransitionGroup
 // } from "react-transition-group";
+import { connect } from "react-redux";
+import { getTodos } from "../flux/actions/todoActions";
+
 
 function ShowNotes() {
 
-    let notes = [
-        { id: uuidv4(), title: "First Note", content: "First Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-        { id: uuidv4(), title: "Second Note", content: "Second Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-        { id: uuidv4(), title: "Third Note", content: "First Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-        { id: uuidv4(), title: "Fourth Note", content: "Second Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-        { id: uuidv4(), title: "Fifth Note", content: "First Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-        { id: uuidv4(), title: "Sixth Note", content: "Second Note Content First Note Content First Note Content First Note Content First Note Content First Note Content" },
-    ]
-    const [AllNotes, setallNotes] = useState(notes);
+    useEffect(() => {
+        getTodos();
+    }, [getTodos])
 
-    const newNotes = (id) => {
-        let currentNotes = [];
-        AllNotes.map(note => {
-            if (note.id !== id) {
-                currentNotes.push(note);
-            }
-            return null;
-        });
-        setallNotes(currentNotes)
-    }
+    // const newNotes = (id) => {
+    //     let currentNotes = [];
+    //     AllNotes.map(note => {
+    //         if (note.id !== id) {
+    //             currentNotes.push(note);
+    //         }
+    //         return null;
+    //     });
+    //     setallNotes(currentNotes)
+    // }
+
 
     return (
         <Container>
@@ -74,4 +71,8 @@ function ShowNotes() {
     )
 }
 
-export default ShowNotes
+const mapStateToProps = (state) => ({
+    AllNotes: state.notes
+})
+
+export default connect(mapStateToProps, { getTodos })(ShowNotes);

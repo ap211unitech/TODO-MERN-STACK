@@ -3,13 +3,18 @@ import Addnote from "./components/addNote";
 import Shownotes from "./components/showNotes";
 import './App.css';
 
+import { Provider } from "react-redux";
+import Store from "./flux/store"
+
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Addnote />
-      <Shownotes />
-    </div>
+    <Provider store={Store}>
+      <div>
+        <Navbar />
+        <Addnote />
+        <Shownotes />
+      </div>
+    </Provider>
   );
 }
 
