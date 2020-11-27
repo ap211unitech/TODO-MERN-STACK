@@ -5,13 +5,21 @@ import {
     Container,
     Input,
 } from "reactstrap";
+import { AddItem } from "../flux/actions/TodoAction";
+import { connect } from "react-redux";
 
-function AddNote() {
+function AddNote({AddItem}) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
     const onSubmit = () => {
-        console.log("Form submitted")
+        // console.log(this.props)
+        // AddItem
+        const note = {
+            title,
+            content
+        }
+        AddItem(note);
     }
 
     return (
@@ -28,4 +36,9 @@ function AddNote() {
     )
 }
 
-export default AddNote
+
+const mapStateToProps = (state) => ({
+    todo: state.todo
+})
+
+export default connect(mapStateToProps, { AddItem })(AddNote);

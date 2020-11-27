@@ -5,3 +5,19 @@ export const getItems = () => {
         type: GET_ITEM
     }
 }
+
+export const AddItem = (item) => {
+    return {
+        type: ADD_ITEM,
+        payload: item
+    }
+}
+
+export const DeleteItem = (id) => {
+    return {
+        type: DELETE_ITEM,
+        payload: {
+            id
+        }
+    }
+}

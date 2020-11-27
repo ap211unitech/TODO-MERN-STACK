@@ -8,13 +8,14 @@ import {
     Button
 } from "reactstrap";
 import { connect } from "react-redux";
-import { getItems } from "../flux/actions/TodoAction";
+import { getItems, DeleteItem } from "../flux/actions/TodoAction";
 import PropTypes from "prop-types";
 
 
 class ShowNotes extends Component {
 
     componentDidMount() {
+        console.log(this.props.todo.items)
         this.props.getItems();
     }
 
@@ -38,7 +39,7 @@ class ShowNotes extends Component {
                                             {note.content}
                                         </CardText>
                                         <Button
-                                            // onClick={() => deleteItem(note.id)}
+                                            onClick={() => this.props.DeleteItem(note.id)}
                                             className="btn btn-md"
                                             color="danger"
                                             style={{ width: "115px" }}>
@@ -57,14 +58,15 @@ class ShowNotes extends Component {
 
 ShowNotes.propTypes = {
     getItems: PropTypes.func.isRequired,
-    todo: PropTypes.object.isRequired
+    todo: PropTypes.object.isRequired,
+    DeleteItem: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
     todo: state.todo
 })
 
-export default connect(mapStateToProps, { getItems })(ShowNotes);
+export default connect(mapStateToProps, { getItems, DeleteItem })(ShowNotes);
 
 
 
