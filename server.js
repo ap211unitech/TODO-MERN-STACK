@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 //Routes
 app.use("/items", require("./routes/api/items"))
 
-//Serve static assets if application in production
+//Serve static assets if application is in production
 if (process.env.NODE_ENV === "production") {
     //Set Static Folder
     app.use(express.static('client/build'))
