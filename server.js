@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 //Routes
 app.use("/items", require("./routes/api/items"));
 app.use("/users", require("./routes/api/user"));
-app.use("/users", require("./routes/api/auth"));
+app.use("/auth", require("./routes/api/auth"));
 
 //Serve static assets if application is in production
 if (process.env.NODE_ENV === "production") {

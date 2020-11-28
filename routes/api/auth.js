@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("config");
 const jwtsecret = config.get("jwtsecret");
+const auth = require("../../middlewares/auth");
 
 //Validators
 const { validateEmail, validatePassword } = require("../../utils/validators")
@@ -70,5 +71,16 @@ router.post("/signin", async (req, res) => {
         return res.send(error);
     }
 })
+
+
+router.get('/user', auth, async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user.id).select('-password');
+        if (!user) throw Error('User does not exist');
+        res.json(user);
+    } catch (e) {
+        res.status(400).json({ msg: e.message });
+    }
+});
 
 module.exports = router;
