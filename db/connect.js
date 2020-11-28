@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
-const { mongodbURL } = require("../config/default.json")
+const config = require("config");
+const mongodbURL = config.get("mongodbURL");
 
 mongoose.connect(mongodbURL,
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true
     },
     () => {
         console.log("DB connected successfully..")
