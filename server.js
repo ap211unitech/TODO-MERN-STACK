@@ -15,7 +15,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
 //Routes
-app.use("/api/items", require("./routes/api/items"))
+app.use("/items", require("./routes/api/items"))
 
 
 //Server

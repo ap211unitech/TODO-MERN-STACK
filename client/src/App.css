@@ -21,3 +21,8 @@
     opacity: 0.01;
     transition: opacity 1000ms ease-in;
 }
+
+.note-height {
+    height: 200px;
+    overflow: auto;
+}

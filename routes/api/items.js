@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
     try {
         const newItem = new ItemModel({
             title: req.body.title,
-            body: req.body.body
+            content: req.body.content
         });
         const Items = await newItem.save();
         res.json(Items);

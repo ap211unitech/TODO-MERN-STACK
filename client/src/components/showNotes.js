@@ -15,7 +15,6 @@ import PropTypes from "prop-types";
 class ShowNotes extends Component {
 
     componentDidMount() {
-        console.log(this.props.todo.items)
         this.props.getItems();
     }
 
@@ -28,7 +27,7 @@ class ShowNotes extends Component {
                     <div className="d-flex flex-wrap align-items-center">
                         {items.map(note => {
                             return (
-                                <Card key={note.id.toString()} style={{ width: "20.56rem" }} className="mr-4 mb-3 mt-3">
+                                <Card key={note._id} style={{ width: "20.56rem" }} className="mr-4 mb-3 mt-3 note-height">
                                     <CardBody>
                                         <CardTitle>
                                             <h3>
@@ -39,9 +38,9 @@ class ShowNotes extends Component {
                                             {note.content}
                                         </CardText>
                                         <Button
-                                            onClick={() => this.props.DeleteItem(note.id)}
-                                            className="btn btn-md"
-                                            color="danger"
+                                            onClick={() => this.props.DeleteItem(note._id)}
+                                            className="btn btn-md mb-3"
+                                            color="primary"
                                             style={{ width: "115px" }}>
                                             Delete Note
                                     </Button>

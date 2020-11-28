@@ -8,18 +8,19 @@ import {
 import { AddItem } from "../flux/actions/TodoAction";
 import { connect } from "react-redux";
 
-function AddNote({AddItem}) {
+function AddNote({ AddItem }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
     const onSubmit = () => {
-        // console.log(this.props)
         // AddItem
         const note = {
             title,
             content
         }
         AddItem(note);
+        setTitle('');
+        setContent('');
     }
 
     return (
