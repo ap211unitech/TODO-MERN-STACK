@@ -37,7 +37,9 @@ class ShowNotes extends Component {
                         <h2>Your Notes</h2>
                         <div className="d-flex flex-wrap align-items-center">
                             {items.length === 0 ?
-                                <h3>Nothing to show here</h3>
+                                <p style={{ fontWeight: "bold" }}>
+                                    Nothing to show here, Add Your Notes from Above Section
+                                </p>
                                 : null
                             }
                             {items.map(note => {
