@@ -20,17 +20,6 @@ const UserModel = require("../../models/user");
 router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
 
-    const validatingEmail = validateEmail(email);
-    const validatingPassword = validatePassword(password);
-
-    if (!validatingEmail.success) {
-        return res.status(400).json(validatingEmail);
-    }
-
-    if (!validatingPassword.success) {
-        return res.status(400).json(validatingPassword);
-    }
-
     try {
         let findUser = await UserModel.findOne({ email });
         if (!findUser) {
@@ -46,7 +35,7 @@ router.post("/signin", async (req, res) => {
                 bcryptjs.compare(password, findUser.password)
                     .then(isMatch => {
                         if (!isMatch) {
-                            return res.status(400).json({ msg: "Invalid credentials" })
+                            return res.status(400).json({ err: "Invalid Password" })
                         }
 
                         jwt.sign(

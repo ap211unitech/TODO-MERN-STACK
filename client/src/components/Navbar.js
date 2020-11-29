@@ -9,6 +9,7 @@ import {
     NavLink,
     Container,
 } from 'reactstrap';
+import LoginModal from "./auth/LoginModal";
 import RegisterModal from "./auth/RegisterModal";
 import Logout from "./auth/Logout";
 import { connect } from "react-redux";
@@ -23,14 +24,14 @@ function AppNavbar({ isAuthenticated }) {
                 </NavbarBrand>
                 <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
+                    <Nav className="ml-auto ml-2 mr-2" navbar>
+                        {!isAuthenticated ? <RegisterModal /> : null}
+                        {!isAuthenticated ? <LoginModal /> : null}
                         <NavItem>
                             <NavLink href="https://github.com/ap211unitech/TODO-MERN-STACK" target="_blank">
                                 Github Repo
                             </NavLink>
                         </NavItem>
-                        {!isAuthenticated ? <RegisterModal /> : null}
-                        {/* {!isAuthenticated ? <LoginModal /> : null} */}
                         {isAuthenticated ? <Logout /> : null}
 
                     </Nav>

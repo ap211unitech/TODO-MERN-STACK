@@ -36,6 +36,10 @@ class ShowNotes extends Component {
                     <Card className="mt-5 p-4">
                         <h2>Your Notes</h2>
                         <div className="d-flex flex-wrap align-items-center">
+                            {items.length === 0 ?
+                                <h3>Nothing to show here</h3>
+                                : null
+                            }
                             {items.map(note => {
                                 return (
                                     <Card key={note._id} style={{ width: "20.56rem" }} className="mr-4 mb-3 mt-3 note-height">
@@ -61,9 +65,11 @@ class ShowNotes extends Component {
                             })}
                         </div>
                     </Card> :
-                    <Alert color="warning">
-                        Login / Register to show your Notes
+                    <div style={{ height: "62vh" }}>
+                        <Alert color="warning">
+                            Login / Register to get your Notes
                     </Alert>
+                    </div>
                 }
             </Container >
         )
@@ -76,7 +82,7 @@ ShowNotes.propTypes = {
     DeleteItem: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => (console.log(state), {
+const mapStateToProps = (state) => ({
     todo: state.todo,
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error

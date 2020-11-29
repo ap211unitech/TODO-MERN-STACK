@@ -12,17 +12,16 @@ import {
     Alert
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { register } from '../../flux/actions/authAction';
+import { login } from '../../flux/actions/authAction';
 import { clearErrors } from '../../flux/actions/errorAction';
 
-const RegisterModal = ({
+const LoginModal = ({
     isAuthenticated,
     error,
-    register,
+    login,
     clearErrors
 }) => {
     const [modal, setModal] = useState(false);
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState(null);
@@ -33,7 +32,6 @@ const RegisterModal = ({
         setModal(!modal);
     }, [clearErrors, modal]);
 
-    const handleChangeName = (e) => setName(e.target.value);
     const handleChangeEmail = (e) => setEmail(e.target.value);
     const handleChangePassword = (e) => setPassword(e.target.value);
 
@@ -42,18 +40,18 @@ const RegisterModal = ({
 
         // Create user object
         const user = {
-            name,
             email,
             password
         };
 
         // Attempt to login
-        register(user);
+        login(user);
     };
+
 
     useEffect(() => {
         // Check for register error
-        if (error.id === 'REGISTER_FAIL') {
+        if (error.id === 'LOGIN_FAIL') {
             setMsg(error.msg.err);
         } else {
             setMsg(null);
@@ -70,25 +68,15 @@ const RegisterModal = ({
     return (
         <div>
             <NavLink onClick={handleToggle} href="#" className="ml-2 mr-2">
-                Register
+                Login
             </NavLink>
 
             <Modal isOpen={modal} toggle={handleToggle}>
-                <ModalHeader toggle={handleToggle}>Register</ModalHeader>
+                <ModalHeader toggle={handleToggle}>Login</ModalHeader>
                 <ModalBody>
                     {msg ? <Alert color="danger">{msg}</Alert> : null}
                     <Form onSubmit={handleOnSubmit}>
                         <FormGroup>
-                            <Label for="name">Name</Label>
-                            <Input
-                                type="text"
-                                name="name"
-                                id="name"
-                                placeholder="Name"
-                                className="mb-3"
-                                onChange={handleChangeName}
-                            />
-
                             <Label for="email">Email</Label>
                             <Input
                                 type="email"
@@ -109,7 +97,7 @@ const RegisterModal = ({
                                 onChange={handleChangePassword}
                             />
                             <Button color="dark" style={{ marginTop: '2rem' }} block>
-                                Register
+                                Login
                             </Button>
                         </FormGroup>
                     </Form>
@@ -124,6 +112,6 @@ const mapStateToProps = (state) => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(
-    RegisterModal
+export default connect(mapStateToProps, { login, clearErrors })(
+    LoginModal
 );

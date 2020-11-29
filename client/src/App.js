@@ -21,7 +21,7 @@ function App() {
         <Navbar />
         <Addnote />
         <Shownotes />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </Provider>
   );

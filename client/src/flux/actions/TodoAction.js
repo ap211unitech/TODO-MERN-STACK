@@ -51,7 +51,7 @@ export const DeleteItem = id => dispatch => {
         }
     }
     Axios
-        .delete(`/items/${id}`)
+        .delete(`/items/${id}`, config)
         .then(res => {
             dispatch({
                 type: DELETE_ITEM,

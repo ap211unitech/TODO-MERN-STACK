@@ -66,10 +66,35 @@ export const register = ({ name, email, password }) => dispatch => {
             });
         })
         .catch(err => {
-            dispatch(returnErrors(err.response.data, err.response.status, "REGISTER_FAIL"));
+            dispatch(returnErrors(err.response.data, err.response.status, REGISTER_FAIL));
             dispatch({
                 type: AUTH_ERROR,
             });
+        })
+}
+
+
+export const login = ({ email, password }) => dispatch => {
+    //Headers
+    const config = {
+        headers: {
+            "Content-type": "application/json"
+        }
+    }
+    const body = { email, password };
+    Axios
+        .post('/auth/signin', body, config)
+        .then(res => {
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status, LOGIN_FAIL))
+            dispatch({
+                type: AUTH_ERROR
+            })
         })
 }
 
