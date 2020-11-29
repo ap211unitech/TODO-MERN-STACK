@@ -5,7 +5,8 @@ import './App.css';
 import { Provider } from "react-redux";
 import store from "./flux/store";
 import { useEffect } from "react";
-import { LoadUser } from "./flux/actions/authAction"
+import { LoadUser } from "./flux/actions/authAction";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Navbar />
         <Addnote />
         <Shownotes />
+        {/* <Footer /> */}
       </div>
     </Provider>
   );

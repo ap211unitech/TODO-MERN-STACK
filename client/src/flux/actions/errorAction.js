@@ -1,6 +1,5 @@
 import { GET_ERRORS, CLEAR_ERRORS } from "../actions/types";
 
-import Axios from "axios";
 
 export const returnErrors = (msg, status, id = null) => {
     return {

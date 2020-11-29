@@ -9,7 +9,7 @@ import {
     REGISTER_FAIL
 } from './types';
 import Axios from "axios";
-import { returnErrors, clearErrors } from "./errorAction";
+import { returnErrors } from "./errorAction";
 
 //Check Token and Load User
 export const LoadUser = () => (dispatch, getState) => {
@@ -44,4 +44,37 @@ export const LoadUser = () => (dispatch, getState) => {
                 type: AUTH_ERROR
             })
         })
+}
+
+
+export const register = ({ name, email, password }) => dispatch => {
+    //Headers
+    const config = {
+        headers: {
+            "Content-type": "application/json"
+        }
+    }
+    const body = { name, email, password };
+
+
+    Axios
+        .post('/users/signup', body, config)
+        .then(res => {
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status, "REGISTER_FAIL"));
+            dispatch({
+                type: AUTH_ERROR,
+            });
+        })
+}
+
+export const logout = () => {
+    return {
+        type: LOGOUT_SUCCESS
+    }
 }

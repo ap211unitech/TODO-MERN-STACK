@@ -70,11 +70,11 @@ router.post("/signup", async (req, res) => {
                 });
 
             } catch (error) {
-                return res.send(error)
+                return res.json(error)
             }
         }
     } catch (error) {
-        return res.send(error);
+        return res.json(error);
     }
 })
 

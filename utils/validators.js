@@ -80,12 +80,12 @@ const validatePassword = password => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{3,32}$/;
     if (regex.test(password)) {
         return {
-            error: null,
+            err: null,
             success: true
         };
     } else {
         return {
-            error: "Password should contain at least one uppercase letter, one lowercase letter,one number and one special character",
+            err: "Password should contain at least one uppercase letter, one lowercase letter,one number and one special character",
             success: false
         };
     }

@@ -9,8 +9,11 @@ import {
     NavLink,
     Container,
 } from 'reactstrap';
+import RegisterModal from "./auth/RegisterModal";
+import Logout from "./auth/Logout";
+import { connect } from "react-redux";
 
-function AppNavbar() {
+function AppNavbar({ isAuthenticated }) {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <Navbar color="dark" dark expand="sm" className="mb-5">
@@ -26,6 +29,10 @@ function AppNavbar() {
                                 Github Repo
                             </NavLink>
                         </NavItem>
+                        {!isAuthenticated ? <RegisterModal /> : null}
+                        {/* {!isAuthenticated ? <LoginModal /> : null} */}
+                        {isAuthenticated ? <Logout /> : null}
+
                     </Nav>
                 </Collapse>
             </Container>
@@ -33,4 +40,10 @@ function AppNavbar() {
     )
 }
 
-export default AppNavbar
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+
+export default connect(mapStateToProps, {})(AppNavbar);

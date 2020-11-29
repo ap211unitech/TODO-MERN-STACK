@@ -5,7 +5,8 @@ import {
     CardBody,
     CardTitle,
     Container,
-    Button
+    Button,
+    Alert
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getItems, DeleteItem } from "../flux/actions/TodoAction";
@@ -18,39 +19,53 @@ class ShowNotes extends Component {
         this.props.getItems();
     }
 
+
     render() {
+
+        const { isAuthenticated } = this.props;
         const { items } = this.props.todo;
+        const { msg } = this.props.error.msg;
+
         return (
-            <Container>
-                <Card className="mt-5 p-4">
-                    <h2>Your Notes</h2>
-                    <div className="d-flex flex-wrap align-items-center">
-                        {items.map(note => {
-                            return (
-                                <Card key={note._id} style={{ width: "20.56rem" }} className="mr-4 mb-3 mt-3 note-height">
-                                    <CardBody>
-                                        <CardTitle>
-                                            <h3>
-                                                {note.title}
-                                            </h3>
-                                        </CardTitle>
-                                        <CardText>
-                                            {note.content}
-                                        </CardText>
-                                        <Button
-                                            onClick={() => this.props.DeleteItem(note._id)}
-                                            className="btn btn-md mb-3"
-                                            color="primary"
-                                            style={{ width: "115px" }}>
-                                            Delete Note
-                                    </Button>
-                                    </CardBody>
-                                </Card>
-                            )
-                        })}
-                    </div>
-                </Card>
-            </Container>
+            < Container >
+                {isAuthenticated && msg ?
+                    <Alert color="danger">
+                        {msg}
+                    </Alert> : null}
+                {isAuthenticated ?
+                    <Card className="mt-5 p-4">
+                        <h2>Your Notes</h2>
+                        <div className="d-flex flex-wrap align-items-center">
+                            {items.map(note => {
+                                return (
+                                    <Card key={note._id} style={{ width: "20.56rem" }} className="mr-4 mb-3 mt-3 note-height">
+                                        <CardBody>
+                                            <CardTitle>
+                                                <h3>
+                                                    {note.title}
+                                                </h3>
+                                            </CardTitle>
+                                            <CardText>
+                                                {note.content}
+                                            </CardText>
+                                            <Button
+                                                onClick={() => this.props.DeleteItem(note._id)}
+                                                className="btn btn-md mb-3"
+                                                color="primary"
+                                                style={{ width: "115px" }}>
+                                                Delete Note
+                            </Button>
+                                        </CardBody>
+                                    </Card>
+                                )
+                            })}
+                        </div>
+                    </Card> :
+                    <Alert color="warning">
+                        Login / Register to show your Notes
+                    </Alert>
+                }
+            </Container >
         )
     }
 }
@@ -58,11 +73,13 @@ class ShowNotes extends Component {
 ShowNotes.propTypes = {
     getItems: PropTypes.func.isRequired,
     todo: PropTypes.object.isRequired,
-    DeleteItem: PropTypes.func.isRequired
+    DeleteItem: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-    todo: state.todo
+const mapStateToProps = (state) => (console.log(state), {
+    todo: state.todo,
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
 })
 
 export default connect(mapStateToProps, { getItems, DeleteItem })(ShowNotes);
