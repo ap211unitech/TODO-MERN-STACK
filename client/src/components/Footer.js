@@ -13,7 +13,7 @@ function Footer() {
                 <div className="d-flex flex-column">
                     <h4>Contact</h4>
                     <a href="mailto:porwal.1@iitj.ac.in">Email</a>
-                    <a href="tel:+9520515708">Phone</a>
+                    <a href="tel:+919520515708">Phone</a>
                 </div>
             </div>
         </Jumbotron>
