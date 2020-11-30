@@ -1,4 +1,4 @@
 {
-    "mongodbURL": "mongodb+srv://arjun:arjun211@cluster0.nmyky.mongodb.net/Mern-Stack-ToDo-App-Development?retryWrites=true&w=majority",
+    "mongodbURL": "mongodb+srv://arjun:arjun211@cluster0.nmyky.mongodb.net/Mern-Stack-ToDo-App?retryWrites=true&w=majority",
     "jwtsecret":"FpAj51BNRtvKeEkz6nPNZaniVQrVPKyX"
 }
