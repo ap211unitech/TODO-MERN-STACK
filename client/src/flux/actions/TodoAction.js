@@ -1,17 +1,12 @@
 import { GET_ITEM, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
 import Axios from "axios";
 import { returnErrors } from "./errorAction";
+import { tokenConfig } from "./authAction";
 
-export const getItems = () => dispatch => {
-    const config = {
-        headers: {
-            'Content-type': 'applicatioon/json',
-            'x-auth-token': localStorage.getItem("token")
-        }
-    }
+export const getItems = () => (dispatch, getState) => {
     dispatch(SetItemsLoading());
     Axios
-        .get("/items", config)
+        .get("/items", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_ITEM,
@@ -23,15 +18,10 @@ export const getItems = () => dispatch => {
         })
 }
 
-export const AddItem = item => dispatch => {
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-            'x-auth-token': localStorage.getItem("token")
-        }
-    }
+export const AddItem = item => (dispatch, getState) => {
+
     Axios
-        .post("/items", item, config)
+        .post("/items", item, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: ADD_ITEM,
@@ -43,15 +33,9 @@ export const AddItem = item => dispatch => {
         })
 }
 
-export const DeleteItem = id => dispatch => {
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-            'x-auth-token': localStorage.getItem("token")
-        }
-    }
+export const DeleteItem = id => (dispatch, getState) => {
     Axios
-        .delete(`/items/${id}`, config)
+        .delete(`/items/${id}`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: DELETE_ITEM,
@@ -64,8 +48,8 @@ export const DeleteItem = id => dispatch => {
 }
 
 
-export const SetItemsLoading = () => {
-    return {
+export const SetItemsLoading = () => dispatch => {
+    dispatch({
         type: ITEMS_LOADING
-    }
+    })
 }

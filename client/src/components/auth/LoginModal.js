@@ -19,7 +19,7 @@ const LoginModal = ({
     isAuthenticated,
     error,
     login,
-    clearErrors
+    clearErrors,
 }) => {
     const [modal, setModal] = useState(false);
     const [email, setEmail] = useState('');
@@ -31,13 +31,13 @@ const LoginModal = ({
         clearErrors();
         setModal(!modal);
     }, [clearErrors, modal]);
-
+    
     const handleChangeEmail = (e) => setEmail(e.target.value);
     const handleChangePassword = (e) => setPassword(e.target.value);
-
+    
     const handleOnSubmit = (e) => {
         e.preventDefault();
-
+        
         // Create user object
         const user = {
             email,
@@ -75,7 +75,7 @@ const LoginModal = ({
                 <ModalHeader toggle={handleToggle}>Login</ModalHeader>
                 <ModalBody>
                     {msg ? <Alert color="danger">{msg}</Alert> : null}
-                    <Form onSubmit={handleOnSubmit}>
+                    <Form>
                         <FormGroup>
                             <Label for="email">Email</Label>
                             <Input
@@ -96,7 +96,7 @@ const LoginModal = ({
                                 className="mb-3"
                                 onChange={handleChangePassword}
                             />
-                            <Button color="dark" style={{ marginTop: '2rem' }} block>
+                            <Button onClick={handleOnSubmit} color="dark" style={{ marginTop: '2rem' }} block>
                                 Login
                             </Button>
                         </FormGroup>
@@ -109,7 +109,7 @@ const LoginModal = ({
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    error: state.error,
 });
 
 export default connect(mapStateToProps, { login, clearErrors })(

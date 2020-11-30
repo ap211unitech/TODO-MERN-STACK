@@ -16,22 +16,8 @@ export const LoadUser = () => (dispatch, getState) => {
     //User Loading
     dispatch({ type: USER_LOADING });
 
-    //Get token form Local Storage
-    const token = getState().auth.token;
-
-    //Headers
-    const config = {
-        headers: {
-            "Content-type": "application/json"
-        }
-    }
-
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
-
     Axios
-        .get("/auth/user", config)
+        .get("/auth/user", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: USER_LOADED,
@@ -68,7 +54,7 @@ export const register = ({ name, email, password }) => dispatch => {
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status, REGISTER_FAIL));
             dispatch({
-                type: AUTH_ERROR,
+                type: REGISTER_FAIL,
             });
         })
 }
@@ -93,13 +79,37 @@ export const login = ({ email, password }) => dispatch => {
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status, LOGIN_FAIL))
             dispatch({
-                type: AUTH_ERROR
+                type: LOGIN_FAIL
             })
         })
 }
 
-export const logout = () => {
-    return {
+export const logout = () => dispatch => {
+    dispatch({
         type: LOGOUT_SUCCESS
-    }
+    });
+    dispatch({
+        type: "DEFAULT"
+    })
 }
+
+
+
+export const tokenConfig = (getState) => {
+    // Get token from localstorage
+    const token = getState().auth.token;
+
+    // Headers
+    const config = {
+        headers: {
+            'Content-type': 'application/json'
+        }
+    };
+
+    // If token, add to headers
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return config;
+};

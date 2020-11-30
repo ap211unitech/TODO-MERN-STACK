@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: true
             }
+        case "DEFAULT":
+            return {
+                ...state,
+                loading: false,
+                items: []
+            }
         default:
             return state
     }
